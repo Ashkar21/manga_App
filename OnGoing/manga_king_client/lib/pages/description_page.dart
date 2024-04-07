@@ -20,6 +20,7 @@ class DescriptionPage extends StatelessWidget {
           const SizedBox(height: 20),
           Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   height: 250,
@@ -34,7 +35,6 @@ class DescriptionPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-
                 GestureDetector(
                   onTap: () {
                     //Add TO book mark
@@ -64,15 +64,65 @@ class DescriptionPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
+                const Text(
+                  'The Return of the Crazy Demon King',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
 
-                // const Text(
-                //   'The Return of the Crazy Demon king',
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontSize: 20,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // )
+                //COntent
+                const Padding(
+                  padding: EdgeInsets.only(top: 20, left: 30),
+                  child: Text(
+                    'Yi Zaha. The crazy demon crazy for martial arts\nWhile he was running away after stealing the heavenly pearl of the Demon Cult Leader, he fell off a cliff.\nAfter thinking that everything was over, he opened his eyes to see that he had returned back to when he was a waiter…\nAnd he is being beat up for something that he didn’t do.\nThe crazy demon who returned to the beginning of his days as a waiter!\nWill he go crazy again, or will he drive his enemies crazy?\n',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                //Chapeter First and Last
+                Row(
+                  children: [
+                    Container(
+                      width: Get.width / 2 - 10,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.purple,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Chapter 1',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Container(
+                      width: Get.width / 2 - 10,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.purple,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Chapter 180',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           )
