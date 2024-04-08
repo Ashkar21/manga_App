@@ -5,7 +5,8 @@ import 'package:manga_king_client/widgets/chapter_list.dart';
 import 'package:manga_king_client/widgets/search_bar.dart';
 
 class DescriptionPage extends StatelessWidget {
-  const DescriptionPage({Key? key}) : super(key: key);
+  final String manga;
+  const DescriptionPage({Key? key, required this.manga}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,6 @@ class DescriptionPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SearchBars(),
             const SizedBox(height: 20),
             Center(
               child: Column(
