@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manga_king_client/pages/reading_page.dart';
 import 'package:manga_king_client/widgets/appbar.dart';
 import 'package:manga_king_client/widgets/chapter_list.dart';
 import 'package:manga_king_client/widgets/search_bar.dart';
@@ -95,13 +96,18 @@ class DescriptionPage extends StatelessWidget {
                           color: Colors.purple,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'Chapter 1',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(const ReadingPage());
+                          },
+                          child: const Center(
+                            child: Text(
+                              'Chapter 1',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                       ),
