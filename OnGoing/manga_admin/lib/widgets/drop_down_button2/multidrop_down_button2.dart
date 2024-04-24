@@ -26,14 +26,13 @@ class _MulitDrop2State extends State<MulitDrop2> {
       title: 'Select Options',
       items: widget.items,
       onChanged: (String? selectedItems) {
-        print('Selected Items: $selectedItems');
         if (selectedItems != null) {
           setState(() {
             widget.controller.text = selectedItems;
           });
         }
       },
-      value: '', // Initial selected values
+      value: 'Action', // Initial selected values
       hint: 'Select options',
       primaryColor: Colors.white, // Customize primary color
       suffixIcon: Icons.arrow_drop_down, // Customize suffix icon
