@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:manga_admin/controller/register_controler.dart';
 import 'package:manga_admin/widgets/drop_down_button2/drop_down_button2.dart';
+import 'package:manga_admin/widgets/drop_down_button2/multidrop_down_button2.dart';
 import 'package:manga_admin/widgets/text/head_text.dart';
 
 class AddMangaPage extends StatelessWidget {
@@ -68,8 +69,10 @@ class AddMangaPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     //Genre
-                    Drop2DownButton(
-                      genderItems: const [
+                    MulitDrop2(
+                      controller: ctrl.genreCtrl,
+                      hintText: 'Select Genres',
+                      items: const [
                         'Action',
                         'Adaptation',
                         "Adult",
@@ -148,13 +151,18 @@ class AddMangaPage extends StatelessWidget {
                         'Webtoon',
                         'Wuxia'
                       ],
-                      hintText: 'Genre',
-                      controller: ctrl.genreCtrl,
                     ),
                     // Type
                     Drop2DownButton(
-                      genderItems: ['bad'],
-                      hintText: 'Type',
+                      genderItems: const [
+                        'All',
+                        'Manga',
+                        'Manhwa',
+                        'Manhua',
+                        'Comic',
+                        'Novel'
+                      ],
+                      hintText: 'Select Type',
                       controller: ctrl.typeCtrl,
                     ),
                     const SizedBox(height: 20),

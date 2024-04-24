@@ -1,16 +1,24 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
-final List<String> items = [
-  'Item1',
-  'Item2',
-  'Item3',
-  'Item4',
-];
-List<String> selectedItems = [];
+class MulitDrop2 extends StatefulWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final List<String> items;
 
-class MulitDrop2 extends StatelessWidget {
-  const MulitDrop2({super.key});
+  const MulitDrop2({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+    required this.items,
+  }) : super(key: key);
+
+  @override
+  State<MulitDrop2> createState() => _MulitDrop2State();
+}
+
+class _MulitDrop2State extends State<MulitDrop2> {
+  List<String> selectedItems = [];
 
   @override
   Widget build(BuildContext context) {
@@ -18,32 +26,33 @@ class MulitDrop2 extends StatelessWidget {
       child: DropdownButton2<String>(
         isExpanded: true,
         hint: Text(
-          'Select Items',
+          widget.hintText,
           style: TextStyle(
             fontSize: 14,
             color: Theme.of(context).hintColor,
           ),
         ),
-        items: items.map((item) {
-          return DropdownMenuItem(
-            value: item,
+        
+        items: widget.items.map((items) {
+          return DropdownMenuItem<String>(
+            value: items,
             //disable default onTap to avoid closing menu when selecting an item
-            enabled: false,
+            onTap: () {},
             child: StatefulBuilder(
               builder: (context, menuSetState) {
-                final isSelected = selectedItems.contains(item);
+                final isSelected = selectedItems.contains(items);
                 return InkWell(
                   onTap: () {
-                    isSelected
-                        ? selectedItems.remove(item)
-                        : selectedItems.add(item);
-                    //This rebuilds the StatefulWidget to update the button's text
-                    setState(() {});
+                    setState(() {
+                      isSelected
+                          ? selectedItems.remove(items)
+                          : selectedItems.add(items);
+                    });
                     //This rebuilds the dropdownMenu Widget to update the check mark
                     menuSetState(() {});
                   },
                   child: Container(
-                    height: double.infinity,
+                    height: 40,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(
                       children: [
@@ -54,7 +63,7 @@ class MulitDrop2 extends StatelessWidget {
                         const SizedBox(width: 16),
                         Expanded(
                           child: Text(
-                            item,
+                            items,
                             style: const TextStyle(
                               fontSize: 14,
                             ),
@@ -70,23 +79,27 @@ class MulitDrop2 extends StatelessWidget {
         }).toList(),
         //Use last selected item as the current value so if we've limited menu height, it scroll to last item.
         value: selectedItems.isEmpty ? null : selectedItems.last,
-        onChanged: (value) {},
+        onChanged: (String? value) {
+          setState(() {
+            print(selectedItems);
+            selectedItems = value?.split(', ') ?? [];
+            widget.controller.text = selectedItems.join(', ');
+          });
+        },
         selectedItemBuilder: (context) {
-          return items.map(
-            (item) {
-              return Container(
-                alignment: AlignmentDirectional.center,
-                child: Text(
-                  selectedItems.join(', '),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  maxLines: 1,
+          return [
+            Container(
+              alignment: AlignmentDirectional.center,
+              child: Text(
+                selectedItems.join(', '),
+                style: const TextStyle(
+                  fontSize: 14,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              );
-            },
-          ).toList();
+                maxLines: 1,
+              ),
+            ),
+          ];
         },
         buttonStyleData: const ButtonStyleData(
           padding: EdgeInsets.only(left: 16, right: 8),
