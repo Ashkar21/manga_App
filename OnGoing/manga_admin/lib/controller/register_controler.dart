@@ -13,7 +13,7 @@ class RegisterController extends GetxController {
   TextEditingController imageUrlCtrl = TextEditingController();
   TextEditingController typeCtrl = TextEditingController();
 
-  addProduct() async {
+  addManga() async {
     try {
       if (nameCtrl.text.isNotEmpty &&
           descriptionCtrl.text.isNotEmpty &&
