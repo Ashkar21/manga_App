@@ -216,6 +216,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  multiselect_dropdown_pro:
+    dependency: "direct main"
+    description:
+      name: multiselect_dropdown_pro
+      sha256: "2037a0cbb5a2ed6d4b543f98bf8965e15d8a21ea8664c05e49da2880d62784e4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   path:
     dependency: transitive
     description:

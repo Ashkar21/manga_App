@@ -37,6 +37,7 @@ dependencies:
   supabase_flutter: ^2.5.1
   dropdown_button2: ^2.3.9
   get: ^4.6.6
+  multiselect_dropdown_pro: ^1.0.2
 
 dev_dependencies:
   flutter_test:
