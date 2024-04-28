@@ -44,7 +44,6 @@ class RegisterController extends GetxController {
         };
 
         db.collection("mangalist").add(mangaData).then((docRef) {
-          print('Document added with ID: ${docRef.id}');
           Get.snackbar(
             "Success",
             'Added Successfully',
@@ -84,5 +83,3 @@ class RegisterController extends GetxController {
     update();
   }
 }
-
-// The rest of your Flutter code goes here...

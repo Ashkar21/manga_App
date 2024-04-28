@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:manga_admin/pages/home_page.dart';
@@ -7,7 +8,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AddChapterController extends GetxController {
   // Access Database
-  final SupabaseClient supabase = Supabase.instance.client;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController chapternoCtrl = TextEditingController();
@@ -16,12 +17,8 @@ class AddChapterController extends GetxController {
     try {
       if (nameCtrl.text.isNotEmpty && chapternoCtrl.text.isNotEmpty) {
         //!---------Createing move to the Register  a bucket----------
-        
 
         // Create a folder for the chapter
-        final chapterNumber = chapternoCtrl.text;
-        final folderPath = '${nameCtrl.text}/chapter$chapterNumber/';
-        await supabase.storage.createBucket(folderPath);
 
         Get.snackbar(
           "Success",
@@ -48,25 +45,30 @@ class AddChapterController extends GetxController {
   }
 
   //Read the data Of List
+Future<List<String>> fetchName() async {
+  try {
+    // Reference to the "name" collection
+    final CollectionReference nameCollection = db.collection("mangalist");
 
-  Future<List<String>> fetchName() async {
-    try {
-      final response = await supabase.from('mangalist').select('name');
+    // Get documents from the "name" collection
+    QuerySnapshot querySnapshot = await nameCollection.get();
 
-      final List<dynamic> dataList = response;
-      final List<String> data =
-          dataList.map((e) => e['name'] as String).toList();
-
-      return data;
-    } catch (e) {
-      Get.snackbar(
-        "An Error has Occurred",
-        e.toString(),
-        colorText: Colors.red,
-      );
-      return []; // Return an empty list in case of error
+    // Extract names from documents
+    List<String> names = [];
+    for (var doc in querySnapshot.docs) {
+      names.add(doc["name"]); // Assuming the field is named "name"
     }
+
+    return names;
+  } catch (e) {
+    Get.snackbar(
+      "An Error has Occurred",
+      e.toString(),
+      colorText: Colors.red,
+    );
+    return []; // Return an empty list in case of error
   }
+}
 
   // Clear Values
   void setValuesDefault() {
