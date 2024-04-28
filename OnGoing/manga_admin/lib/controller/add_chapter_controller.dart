@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:manga_admin/pages/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// ... (other imports)
+
 class AddChapterController extends GetxController {
   // Access Database
   final SupabaseClient supabase = Supabase.instance.client;
@@ -10,11 +12,16 @@ class AddChapterController extends GetxController {
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController chapternoCtrl = TextEditingController();
 
-  addChapter() async {
+  Future<void> addChapter() async {
     try {
       if (nameCtrl.text.isNotEmpty && chapternoCtrl.text.isNotEmpty) {
-        await supabase.storage
-            .createBucket(nameCtrl.text, const BucketOptions(public: true));
+        //!---------Createing move to the Register  a bucket----------
+        
+
+        // Create a folder for the chapter
+        final chapterNumber = chapternoCtrl.text;
+        final folderPath = '${nameCtrl.text}/chapter$chapterNumber/';
+        await supabase.storage.createBucket(folderPath);
 
         Get.snackbar(
           "Success",
@@ -23,11 +30,11 @@ class AddChapterController extends GetxController {
         );
 
         Get.to(const HomePage());
-        setValuesDefault(); // Move this line here
+        setValuesDefault();
       } else {
         Get.snackbar(
           "An Error has Occurred",
-          'Fill all the Field',
+          'Fill all the Fields',
           colorText: Colors.red,
         );
       }
@@ -39,6 +46,7 @@ class AddChapterController extends GetxController {
       );
     }
   }
+
   //Read the data Of List
 
   Future<List<String>> fetchName() async {
@@ -60,7 +68,8 @@ class AddChapterController extends GetxController {
     }
   }
 
-  setValuesDefault() {
+  // Clear Values
+  void setValuesDefault() {
     nameCtrl.clear();
     chapternoCtrl.clear();
     update();

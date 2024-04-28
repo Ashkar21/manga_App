@@ -13,6 +13,8 @@ class RegisterController extends GetxController {
   TextEditingController imageUrlCtrl = TextEditingController();
   TextEditingController typeCtrl = TextEditingController();
 
+
+
   addManga() async {
     try {
       if (nameCtrl.text.isNotEmpty &&
@@ -20,6 +22,10 @@ class RegisterController extends GetxController {
           genreCtrl.text.isNotEmpty &&
           imageUrlCtrl.text.isNotEmpty &&
           typeCtrl.text.isNotEmpty) {
+        //! Create a bucket
+        await supabase.storage.createBucket((nameCtrl.text).toLowerCase());
+
+        // Insert data into the 'mangalist' table
         await supabase.from('mangalist').insert({
           'name': nameCtrl.text,
           'description': descriptionCtrl.text,
@@ -27,17 +33,19 @@ class RegisterController extends GetxController {
           'imageurl': imageUrlCtrl.text,
           'type': typeCtrl.text,
         });
+
         Get.snackbar(
           "Success",
-          ' Added Successfully',
+          'Added Successfully',
           colorText: Colors.green,
         );
+
         setValuesDefault();
         Get.to(const HomePage());
       } else {
         Get.snackbar(
           "An Error has Occurred",
-          'Fill all the Field',
+          'Fill all the Fields',
           colorText: Colors.red,
         );
       }
