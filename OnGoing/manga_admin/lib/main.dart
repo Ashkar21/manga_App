@@ -3,18 +3,21 @@ import 'package:get/get.dart';
 import 'package:manga_admin/controller/add_chapter_controller.dart';
 import 'package:manga_admin/controller/register_controler.dart';
 import 'package:manga_admin/pages/home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-Future<void> main() async {
-  await Supabase.initialize(
-    url: 'https://paxjeolcnownpxtvcret.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBheGplb2xjbm93bnB4dHZjcmV0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTMyNzIyMTUsImV4cCI6MjAyODg0ODIxNX0.8sgLLekMQkY4OtzLxfhh7HZw5nXTvTvkE6u0wGo2s0g',
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+  } catch (e) {
+    // ignore: avoid_print
+    print('Error initializing Firebase: $e');
+  }
+  runApp(const MyApp());
   Get.put(RegisterController());
   Get.put(AddChapterController());
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
